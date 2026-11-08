@@ -1,0 +1,21 @@
+Robbo Open edX — frontend-app-communications override
+=====================================================
+
+This repository is a Robbo fork/override of Open edX frontend-app-communications
+(the bulk email page of the instructor dashboard).
+Upstream: https://github.com/openedx/frontend-app-communications .
+
+Modifications and Robbo-specific files (including src/robbo/, src/robbo-layout/, src/sass/_robbo-brand-*.scss,
+src/i18n/robbo-overrides/ and files marked in copyright headers) are:
+
+  Copyright (C) 2026 Robbo <https://robbo.ru>
+
+Licensed under the GNU Affero General Public License v3.0-only. See LICENSE.
+
+src/components/bulk-email-tool/text-editor/langs/ru.js is the unchanged TinyMCE 5
+Russian language pack as distributed in the npm package tinymce-i18n 26.11.2. It
+is community-contributed, curated by Tiny Technologies Inc. and licensed under
+the same terms as TinyMCE 5 (LGPL-2.1).
+
+For corresponding source matching a deployed Robbo communications instance, see
+the offer published with that service (for example https://skill.robbo.ru).

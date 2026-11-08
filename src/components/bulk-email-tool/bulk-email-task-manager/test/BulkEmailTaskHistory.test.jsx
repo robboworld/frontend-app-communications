@@ -62,8 +62,8 @@ describe('BulkEmailTaskHistory component', () => {
     expect(await screen.findByText(task.task_id)).toBeTruthy();
     expect(await screen.findByText(task.task_input)).toBeTruthy();
     expect(await screen.findByText(task.task_message)).toBeTruthy();
-    expect(await screen.findByText(task.task_state)).toBeTruthy();
-    expect(await screen.findByText(task.task_type)).toBeTruthy();
+    expect(await screen.findByText('Done')).toBeTruthy();
+    expect(await screen.findByText('Course email')).toBeTruthy();
   });
 
   test('renders a warning Alert when the button is pressed but there is no data to display', async () => {

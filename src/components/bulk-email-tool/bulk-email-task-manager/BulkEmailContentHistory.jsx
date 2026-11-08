@@ -10,6 +10,7 @@ import {
 } from '@openedx/paragon';
 import { SpinnerSimple } from '@openedx/paragon/icons';
 import messages from './messages';
+import { formatDateTime, formatRecipients } from '../../../robbo/serverValues';
 import { getSentEmailHistory } from './data/api';
 import BulkEmailTaskManagerTable from './BulkEmailHistoryTable';
 import ViewEmailModal from './ViewEmailModal';
@@ -55,11 +56,11 @@ function BulkEmailContentHistory({ intl }) {
     const tableData = emailHistoryData?.map((item) => ({
       ...item,
       subject: item.email.subject,
-      sent_to: item.sent_to.join(', '),
-      created: new Date(item.created).toLocaleString(),
+      sent_to: formatRecipients(item.sent_to, intl),
+      created: formatDateTime(item.created),
     }));
     return tableData || [];
-  }, [emailHistoryData]);
+  }, [emailHistoryData, intl]);
 
   /**
    * This function is responsible for setting the current `messageContent` state data. This will be the contents of a

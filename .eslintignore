@@ -2,3 +2,7 @@ coverage/*
 dist/
 node_modules/
 jest.config.js
+src/components/bulk-email-tool/text-editor/langs/ru.js
+# Copies of the shared Robbo layout and of the Learning tab bar: kept identical to the originals.
+src/robbo-layout/
+src/components/navigation-tabs/tabs/

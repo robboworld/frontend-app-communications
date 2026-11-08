@@ -40,7 +40,12 @@ pull_translations:
 	            translations/frontend-platform/src/i18n/messages:frontend-platform \
 	            translations/frontend-app-communications/src/i18n/messages:frontend-app-communications
 
-	$(intl_imports) frontend-component-header frontend-component-footer paragon frontend-platform frontend-app-communications
+	# Robbo: our catalog goes last so it overrides Atlas strings.
+	mkdir -p $(i18n)/messages/robbo-custom
+	cp $(i18n)/robbo-overrides/en.json $(i18n)/messages/robbo-custom/en.json
+	cp $(i18n)/robbo-overrides/ru.json $(i18n)/messages/robbo-custom/ru.json
+
+	$(intl_imports) frontend-component-header frontend-component-footer paragon frontend-platform frontend-app-communications robbo-custom
 
 # This target is used by Travis.
 validate-no-uncommitted-package-lock-changes:

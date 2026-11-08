@@ -32,6 +32,26 @@ const messages = defineMessages({
     id: 'bulk.email.scheduled.emails.table.confirm.delete',
     defaultMessage: 'You are deleting an email scheduled to be sent on {date}. The email will not be sent and the scheduling canceled. Are you sure?',
   },
+  bulkEmailScheduledEmailsTableAction: {
+    id: 'bulk.email.scheduled.emails.table.action',
+    defaultMessage: 'Action',
+  },
+  bulkEmailScheduledEmailsTableView: {
+    id: 'bulk.email.scheduled.emails.table.view',
+    defaultMessage: 'View',
+  },
+  bulkEmailScheduledEmailsTableDelete: {
+    id: 'bulk.email.scheduled.emails.table.delete',
+    defaultMessage: 'Delete',
+  },
+  bulkEmailScheduledEmailsTableEdit: {
+    id: 'bulk.email.scheduled.emails.table.edit',
+    defaultMessage: 'Edit',
+  },
+  bulkEmailScheduledEmailsTableEmpty: {
+    id: 'bulk.email.scheduled.emails.table.empty',
+    defaultMessage: 'No results found',
+  },
 });
 
 export default messages;

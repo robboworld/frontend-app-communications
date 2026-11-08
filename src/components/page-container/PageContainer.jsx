@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
-import { LearningHeader as Header } from '@edx/frontend-component-header';
-import { FooterSlot } from '@edx/frontend-component-footer';
 import { Spinner } from '@openedx/paragon';
 
-import { getCohorts, getCourseHomeCourseMetadata } from './data/api';
+import { RobboFooter, RobboHeader } from '../../robbo-layout';
+import NavigationTabs from '../navigation-tabs/NavigationTabs';
 
-import './PageContainer.scss';
+import { getCohorts, getCourseHomeCourseMetadata } from './data/api';
 
 export const CourseMetadataContext = React.createContext();
 
@@ -60,20 +59,16 @@ export default function PageContainer(props) {
   if (courseMetadata) {
     return (
       <CourseMetadataContext.Provider value={courseMetadata}>
-        <>
-          <Header
-            className="learning-header"
-            courseOrg={courseMetadata.org}
-            courseNumber={courseMetadata.number}
-            courseTitle={courseMetadata.title}
-          />
+        {/* Robbo: the site header, footer and course tabs of the Learning course pages (src/robbo-layout).
+            No .robbo-layout-page: as in Learning and discussions the page keeps the Paragon font. */}
+        <RobboHeader collapseNavIntoUserMenuOnNarrow />
+        <main id="main-content">
+          <NavigationTabs tabData={courseMetadata.tabs} />
           <div className="pb-3 container">
-            <main id="main-content">
-              {children}
-            </main>
+            {children}
           </div>
-          <FooterSlot />
-        </>
+        </main>
+        <RobboFooter />
       </CourseMetadataContext.Provider>
     );
   }

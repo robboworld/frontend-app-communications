@@ -68,13 +68,9 @@ describe('BulkEmailTool', () => {
     const courseInfo = Factory.build('courseMetadata');
     const courseMetadata = buildCourseMetadata(cohorts, courseInfo);
     renderBulkEmailTool(courseMetadata);
-    // verify all tab data expected is displayed within our component
-    expect(await screen.findByText('Course')).toBeTruthy();
-    expect(await screen.findByText('Discussion')).toBeTruthy();
-    expect(await screen.findByText('Wiki')).toBeTruthy();
-    expect(await screen.findByText('Progress')).toBeTruthy();
-    expect(await screen.findByText('Instructor')).toBeTruthy();
-    expect(await screen.findByText('Dates')).toBeTruthy();
+    // Robbo: the course tabs moved to PageContainer, under the site header.
+    expect(await screen.findByText('Send an email')).toBeTruthy();
+    expect(await screen.findByText('Back to Instructor Dashboard')).toBeTruthy();
   });
 
   test('BulkEmailTool renders error page on no staff user', async () => {

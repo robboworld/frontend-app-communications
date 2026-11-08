@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage } from '@edx/frontend-platform/i18n';
+import { FormattedMessage, getLocale } from '@edx/frontend-platform/i18n';
 import { Form } from '@openedx/paragon';
 import useMobileResponsive from '../../../utils/useMobileResponsive';
 
@@ -34,7 +34,7 @@ function ScheduleEmailForm(props) {
               id="bulk.email.form.schedule.date.description"
               defaultMessage="Enter a start date, e.g. {date}"
               values={{
-                date: descriptionDate.toLocaleDateString(),
+                date: descriptionDate.toLocaleDateString(getLocale()),
               }}
             />
           </small>
@@ -59,7 +59,7 @@ function ScheduleEmailForm(props) {
               id="bulk.email.form.schedule.time.description"
               defaultMessage="Enter a start time, e.g. {time}"
               values={{
-                time: descriptionDate.toLocaleTimeString([], { timeStyle: 'short' }),
+                time: descriptionDate.toLocaleTimeString(getLocale(), { timeStyle: 'short' }),
               }}
             />
           </small>

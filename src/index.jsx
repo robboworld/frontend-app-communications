@@ -15,8 +15,10 @@ import messages from './i18n';
 import './index.scss';
 import BulkEmailTool from './components/bulk-email-tool';
 import PageContainer from './components/page-container/PageContainer';
+import applyPaginationLabels from './robbo/paginationLabels';
 
 subscribe(APP_READY, () => {
+  applyPaginationLabels();
   const root = createRoot(document.getElementById('root'));
 
   root.render(

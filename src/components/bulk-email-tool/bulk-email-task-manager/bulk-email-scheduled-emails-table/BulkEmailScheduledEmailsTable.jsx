@@ -4,7 +4,7 @@
 import React, {
   useCallback, useContext, useState, useEffect,
 } from 'react';
-import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape, useIntl } from '@edx/frontend-platform/i18n';
 import {
   Alert, DataTable, Icon, IconButton, useToggle,
 } from '@openedx/paragon';
@@ -19,13 +19,20 @@ import ViewEmailModal from '../ViewEmailModal';
 import { copyToEditor } from '../../bulk-email-form/data/actions';
 import TaskAlertModal from '../../task-alert-modal';
 import { formatDate, formatTime } from '../../../../utils/formatDateAndTime';
+import { formatDateTime, formatRecipients } from '../../../../robbo/serverValues';
+
+// Paragon hardcodes the empty table text and passes it as `content`.
+function EmptyScheduledEmailsTable({ content, ...rest }) {
+  const intl = useIntl();
+  return <DataTable.EmptyTable {...rest} content={intl.formatMessage(messages.bulkEmailScheduledEmailsTableEmpty)} />;
+}
 
 function flattenScheduledEmailsArray(emails) {
   return emails.map((email) => ({
     schedulingId: email.id,
     emailId: email.courseEmail.id,
     task: email.task,
-    taskDue: new Date(email.taskDue).toLocaleString(),
+    taskDue: formatDateTime(email.taskDue),
     taskDueUTC: email.taskDue,
     ...email.courseEmail,
     targets: email.courseEmail.targets.join(', '),
@@ -62,7 +69,7 @@ function BulkEmailScheduledEmailsTable({ intl }) {
         email: {
           html_message: row.original.htmlMessage,
         },
-        sent_to: row.original.targets,
+        sent_to: formatRecipients(row.original.targets.split(', '), intl),
       },
     });
   };
@@ -143,6 +150,7 @@ function BulkEmailScheduledEmailsTable({ intl }) {
           isPaginated
           manualPagination
           fetchData={fetchTableData}
+          EmptyTableComponent={EmptyScheduledEmailsTable}
           initialState={{
             pageSize: 10,
             pageIndex: 0,
@@ -155,6 +163,7 @@ function BulkEmailScheduledEmailsTable({ intl }) {
             {
               Header: intl.formatMessage(messages.bulkEmailScheduledEmailsTableSendTo),
               accessor: 'targets',
+              Cell: ({ value }) => formatRecipients(value.split(', '), intl),
             },
             {
               Header: intl.formatMessage(messages.bulkEmailScheduledEmailsTableSubject),
@@ -168,16 +177,21 @@ function BulkEmailScheduledEmailsTable({ intl }) {
           additionalColumns={[
             {
               id: 'action',
-              Header: 'Action',
+              Header: intl.formatMessage(messages.bulkEmailScheduledEmailsTableAction),
               Cell: ({
                 row, state, page, previousPage,
               }) => (
                 <>
-                  <IconButton src={Visibility} iconAs={Icon} alt="View" onClick={() => handleViewEmail(row)} />
+                  <IconButton
+                    src={Visibility}
+                    iconAs={Icon}
+                    alt={intl.formatMessage(messages.bulkEmailScheduledEmailsTableView)}
+                    onClick={() => handleViewEmail(row)}
+                  />
                   <IconButton
                     src={Delete}
                     iconAs={Icon}
-                    alt="Delete"
+                    alt={intl.formatMessage(messages.bulkEmailScheduledEmailsTableDelete)}
                     onClick={() => {
                       setCurrentTask({
                         row, pageIndex: state.pageIndex, page, previousPage,
@@ -185,7 +199,12 @@ function BulkEmailScheduledEmailsTable({ intl }) {
                       openConfirmModal();
                     }}
                   />
-                  <IconButton src={Edit} iconAs={Icon} alt="Edit" onClick={() => handleEditEmail(row)} />
+                  <IconButton
+                    src={Edit}
+                    iconAs={Icon}
+                    alt={intl.formatMessage(messages.bulkEmailScheduledEmailsTableEdit)}
+                    onClick={() => handleEditEmail(row)}
+                  />
                 </>
               ),
             },

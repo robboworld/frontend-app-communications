@@ -28,6 +28,7 @@ import {
 } from './data/actions';
 import { editScheduledEmailThunk, postBulkEmailThunk } from './data/thunks';
 import { getScheduledBulkEmailThunk } from '../bulk-email-task-manager/bulk-email-scheduled-emails-table/data/thunks';
+import { formatDateTime, formatRecipients } from '../../../robbo/serverValues';
 
 import './bulkEmailForm.scss';
 
@@ -219,7 +220,7 @@ function BulkEmailForm(props) {
       <p>{intl.formatMessage(messages.bulkEmailTaskAlertRecipients, { subject: editor.emailSubject })}</p>
       <ul className="list-unstyled">
         {editor.emailRecipients.map((group) => (
-          <li key={group}>{group}</li>
+          <li key={group}>{formatRecipients([group], intl)}</li>
         ))}
       </ul>
       {!isScheduled && (
@@ -235,7 +236,7 @@ function BulkEmailForm(props) {
     <>
       <p>
         {intl.formatMessage(messages.bulkEmailTaskAlertEditingDate, {
-          dateTime: new Date(`${editor.scheduleDate} ${editor.scheduleTime}`).toLocaleString(),
+          dateTime: formatDateTime(`${editor.scheduleDate} ${editor.scheduleTime}`),
         })}
       </p>
       <p>
@@ -246,7 +247,7 @@ function BulkEmailForm(props) {
       <p>{intl.formatMessage(messages.bulkEmailTaskAlertEditingTo)}</p>
       <ul className="list-unstyled">
         {editor.emailRecipients.map((group) => (
-          <li key={group}>{group}</li>
+          <li key={group}>{formatRecipients([group], intl)}</li>
         ))}
       </ul>
       <p>{intl.formatMessage(messages.bulkEmailTaskAlertEditingWarning)}</p>
@@ -330,7 +331,7 @@ function BulkEmailForm(props) {
               'border-top pt-2': isScheduled,
             })}
           >
-            {editor.editMode && <Button className="ml-2" variant="outline-brand" onClick={() => dispatch(clearEditor())}>Cancel</Button>}
+            {editor.editMode && <Button className="ml-2" variant="outline-brand" onClick={() => dispatch(clearEditor())}>{intl.formatMessage(messages.bulkEmailFormCancelEdit)}</Button>}
             <StatefulButton
               className="send-email-btn"
               variant="primary"

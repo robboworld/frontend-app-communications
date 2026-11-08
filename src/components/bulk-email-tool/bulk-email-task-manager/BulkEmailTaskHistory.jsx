@@ -6,6 +6,9 @@ import { Icon, Collapsible } from '@openedx/paragon';
 import { SpinnerSimple } from '@openedx/paragon/icons';
 import { getEmailTaskHistory } from './data/api';
 import messages from './messages';
+import {
+  formatDateTime, formatTaskDuration, formatTaskMessage, formatTaskState, formatTaskType,
+} from '../../../robbo/serverValues';
 
 import BulkEmailTaskManagerTable from './BulkEmailHistoryTable';
 
@@ -44,10 +47,14 @@ function BulkEmailTaskHistory({ intl }) {
   const transformDataForTable = useMemo(() => {
     const tableData = emailTaskHistoryData?.map((item) => ({
       ...item,
-      created: new Date(item.created).toLocaleString(),
+      task_type: formatTaskType(item.task_type, intl),
+      task_state: formatTaskState(item.task_state, intl),
+      duration_sec: formatTaskDuration(item.duration_sec, intl),
+      task_message: formatTaskMessage(item.task_message, intl),
+      created: formatDateTime(item.created),
     }));
     return tableData || [];
-  }, [emailTaskHistoryData]);
+  }, [emailTaskHistoryData, intl]);
 
   const tableColumns = [
     {

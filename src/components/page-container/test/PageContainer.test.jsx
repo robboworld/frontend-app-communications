@@ -40,9 +40,14 @@ describe('PageContainer', () => {
 
     render(<PageContainer />);
 
-    // Look for the org, title, and number of the course, which should be displayed in the Header.
-    expect(await screen.findByText(`${courseMetadata.org} ${courseMetadata.number}`)).toBeTruthy();
-    expect(await screen.findByText(courseMetadata.title)).toBeTruthy();
+    // Robbo: the site header has no course title; the course tabs sit under it, as in Learning.
+    expect(await screen.findByRole('navigation', { name: 'Course Material' })).toBeTruthy();
+    expect(await screen.findByText('Course')).toBeTruthy();
+    expect(await screen.findByText('Discussion')).toBeTruthy();
+    expect(await screen.findByText('Wiki')).toBeTruthy();
+    expect(await screen.findByText('Progress')).toBeTruthy();
+    expect(await screen.findByText('Instructor')).toBeTruthy();
+    expect(await screen.findByText('Dates')).toBeTruthy();
   });
 
   test('PageContainer renders children nested within it.', async () => {

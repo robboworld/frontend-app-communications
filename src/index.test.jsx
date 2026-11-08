@@ -34,6 +34,7 @@ jest.mock('@edx/frontend-platform', () => ({
 
 jest.mock('./components/bulk-email-tool/BulkEmailTool', () => 'Bulk Email Tool');
 jest.mock('./components/page-container/PageContainer', () => 'Page Container');
+jest.mock('./robbo/paginationLabels', () => jest.fn());
 
 describe('app registry', () => {
   let getElement;

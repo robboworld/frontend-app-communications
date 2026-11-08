@@ -66,6 +66,11 @@ const messages = defineMessages({
     defaultMessage: 'We recommend sending learners no more than one email message per week. Before you send your email, review the text carefully and send it to yourself first, so that you can preview the formatting and make sure embedded images and links work correctly.',
     description: 'A set of instructions to give users a heads up about the formatting of the email they are about to send',
   },
+  bulkEmailFormCancelEdit: {
+    id: 'bulk.email.form.editor.cancel',
+    defaultMessage: 'Cancel',
+    description: 'Button that leaves the editing of a scheduled email',
+  },
   bulkEmailInstructionsCaution: { id: 'bulk.email.instructions.caution', defaultMessage: 'Caution!' },
 
   bulkEmailInstructionsCautionMessage: {
